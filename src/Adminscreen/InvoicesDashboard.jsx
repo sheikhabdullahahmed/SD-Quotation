@@ -1,11 +1,9 @@
 import React from "react";
-
 import { useState } from "react";
-import { X, Mail, FileText, Calendar } from "lucide-react"; 
-import  blueimage from '../../assets/blueimage.png'
+import { X, Mail, FileText, Calendar } from "lucide-react";
+import Sidebar from "../Adminscreen/Sidebar";
 
-
-function InvoiceForm() {
+const NewInvoice = () => {
   const [activeTab, setActiveTab] = useState("customer");
   const [showModal, setShowModal] = useState(false);
   const [fileName, setFileName] = useState("");
@@ -554,417 +552,430 @@ function InvoiceForm() {
     }
   };
 
-
-
   return (
-    <div className="flex-1 flex flex-col overflow-hidden bg-white">
-      <div className="bg-white border-b border-gray-200 px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
-            New Invoice
-          </h1>
-          <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-              <X className="w-4 h-4" />
-              Hide Preview
-            </button>
-            <button
-              className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg border border-gray-300"
-              onClick={() => setShowModal(true)}
-            >
-              <FileText className="w-4 h-4" />
-              Save As
-            </button>
-            <button className="flex items-center gap-2 px-6 py-2 bg-gray-900   text-white rounded-lg hover:bg-blue-600">
-              <Mail className="w-4 h-4" />
-              Send Invoice
-            </button>
-          </div>
-        </div>
+    <div className="flex w-full h-screen overflow-hidden bg-white">
+      <div className="w-64 border-r border-gray-200 bg-white">
+        <Sidebar />
       </div>
-
-      <div className="flex-1 overflow-auto">
-        <div
-          className={`flex flex-col ${
-            sidebarCollapsed ? "lg:flex-row lg:gap-10" : "lg:flex-row md:gap-6"
-          } p-6 transition-all duration-300`}
-        >
-          {/* Left Form Section */}
-          <div
-            className={`${
-              sidebarCollapsed ? "w-full" : "w-full lg:w-3/5"
-            } transition-all`}
-          >
-            <div className="bg-white rounded-lg border border-gray-200 p-4 max-w-5xl mx-auto">
-              {/* Tabs */}
-              <div className="col-span-full mb-6">
-                <div className="flex gap-2 overflow-x-auto whitespace-nowrap pb-1">
-                  {tabs.map((tab) => (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id)}
-                      className={`px-3 py-1 rounded-full font-medium transition-colors ${
-                        activeTab === tab.id
-                          ? "bg-blue-200 border border-[#007AFF] text-[#007AFF]"
-                          : "bg-white text-[#007AFF] border border-[#007AFF] hover:bg-blue-200"
-                      }`}
-                    >
-                      {tab.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Form Grid */}
-              <div className="grid grid-cols-2 gap-6">
-                {renderFormContent()}
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex flex-col md:flex-row items-center justify-center md:mt-20 mt-8 gap-4 md:gap-8 px-4 py-4">
-                <button className="bg-gray-900 text-white w-64 py-2 rounded-lg hover:bg-gray-800 transition">
-                  Next
-                </button>
-                <button className="bg-gray-900 text-white w-64 py-2 rounded-lg hover:bg-gray-800 transition">
-                  Previous
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Preview Section */}
-          <div
-            className={`${
-              sidebarCollapsed ? "w-full" : "col-span-1"
-            } transition-all`}
-          >
-            <div className="rounded-lg border border-gray-200 px-3 py-4 sticky top-6 bg-white">
-              {/* Header Section */}
-              {(activeTab === "customer" ||
-                activeTab === "order" ||
-                activeTab === "product" ||
-                activeTab === "summary") && (
-                <>
-                  <div className="flex flex-col md:flex-row mb-2">
-                    <div className="flex flex-col items-center md:items-start">
-                      <div className="bg-gradient-to-br  rounded-2xl flex items-center justify-center w-20 h-20">
-                        <img src={blueimage} alt="" className="w-12" />
-                      </div>
-                      <div className="mt-4 flex gap-2 text-sm">
-                        <span className="text-gray-600">Invoice Number:</span>
-                        <span className="font-medium">INV-04568</span>
-                      </div>
-                      <p className="font-medium text-sm mt-1 text-gray-700">
-                        07526
-                      </p>
-                    </div>
-
-                    <div className="flex-1 text-sm text-right md:text-right space-y-1">
-                      <p className="text-gray-600">
-                        19th Street, Mckinney Walker
-                      </p>
-                      <p className="text-gray-600">Jaddah</p>
-                      <p className="text-gray-600">+1-0281-856-6</p>
-                      <div className="pt-2">
-                        <p className="font-medium mb-1">Thomas Shelby</p>
-                        <p className="text-gray-600">thomasshelby@gmail.com</p>
-                        <p className="text-gray-600">Houston, Texas</p>
-                        <p className="text-gray-600">77002</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Project Description */}
-                  <div className="border-t-2 border-blue-500 pt-3">
-                    <p className="font-medium text-sm mb-2">
-                      Project Description:
-                    </p>
-                    <p className="text-gray-600 text-sm">
-                      Add a brief and concise description of the project, item,
-                      or service here.
-                    </p>
-                  </div>
-
-                  {activeTab === "product" && (
-                    <div>
-                      <p className="font-medium text-sm mb-3">
-                        Product Details
-                      </p>
-
-                      <div className="overflow-x-auto">
-                        <table className="w-full text-xs">
-                          <thead>
-                            <tr className="border-b">
-                              <th className="text-left py-2 px-1 bg-blue-100 text-blue-600 rounded-tl-lg">
-                                S.no
-                              </th>
-                              <th className="text-left py-2 px-1 bg-blue-100 text-blue-600">
-                                Product Name
-                              </th>
-                              <th className="text-left py-2 px-1 bg-blue-100 text-blue-600">
-                                Quantity
-                              </th>
-                              <th className="text-left py-2 px-1 bg-blue-100 text-blue-600">
-                                Unit Price
-                              </th>
-                              <th className="text-left py-2 px-1 bg-blue-100 text-blue-600">
-                                Discount %
-                              </th>
-                              <th className="text-left py-2 px-1 bg-blue-100 text-blue-600 rounded-tr-lg">
-                                Tax %
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody className="text-gray-700">
-                            <tr className="border-b">
-                              <td className="py-2 px-1">01</td>
-                              <td className="py-2 px-1">Gas torch</td>
-                              <td className="py-2 px-1">60pcs</td>
-                              <td className="py-2 px-1">40.00$</td>
-                              <td className="py-2 px-1">6%</td>
-                              <td className="py-2 px-1">2%</td>
-                            </tr>
-                            <tr className="border-b">
-                              <td className="py-2 px-1">02</td>
-                              <td className="py-2 px-1">Scrapers</td>
-                              <td className="py-2 px-1">45pcs</td>
-                              <td className="py-2 px-1">25.00$</td>
-                              <td className="py-2 px-1">8%</td>
-                              <td className="py-2 px-1">2%</td>
-                            </tr>
-                            <tr className="border-b">
-                              <td className="py-2 px-1">03</td>
-                              <td className="py-2 px-1">Sealant guns</td>
-                              <td className="py-2 px-1">30pcs</td>
-                              <td className="py-2 px-1">50.00$</td>
-                              <td className="py-2 px-1">5%</td>
-                              <td className="py-2 px-1">3%</td>
-                            </tr>
-                            <tr className="border-b">
-                              <td className="py-2 px-1">04</td>
-                              <td className="py-2 px-1">Heat gun</td>
-                              <td className="py-2 px-1">80pcs</td>
-                              <td className="py-2 px-1">60.00$</td>
-                              <td className="py-2 px-1">9%</td>
-                              <td className="py-2 px-1">4%</td>
-                            </tr>
-                            <tr>
-                              <td className="py-2 px-1">05</td>
-                              <td className="py-2 px-1">Mixing paddles</td>
-                              <td className="py-2 px-1">15pcs</td>
-                              <td className="py-2 px-1">15.00$</td>
-                              <td className="py-2 px-1">8%</td>
-                              <td className="py-2 px-1">2%</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div className="border-t-2 border-blue-500  mt-3  text-sm ">
-                        <div className="mt-2">
-                          <p className="text-gray-600 text-sm font-medium">
-                            Terms Condition
-                          </p>
-                          <p className="font-medium text-gray-700">
-                            Add a brief and concise description of the project,
-                            item, or service here.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Subtotal - Only on Order tab */}
-                  {activeTab === "order" && (
-                    <div className="md:pt-25">
-                      <div className="border-t-2 border-blue-500  mt-3  text-sm ">
-                        <div className="mt-2">
-                          <p className="text-gray-600 text-sm font-medium">
-                            Terms Condition
-                          </p>
-                          <p className="font-medium text-gray-700">
-                            Add a brief and concise description of the project,
-                            item, or service here.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </>
-              )}
-
-              {/* Product Table - Show on Product and Summary tabs */}
-              {activeTab === "summary" && (
-                <div className="mt-4">
-                  <p className="font-medium text-sm mb-3">Product Details</p>
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-xs">
-                      <thead>
-                        <tr className="border-b">
-                          <th className="text-left py-2 px-1 bg-blue-100 text-blue-600 rounded-tl-lg">
-                            S.no
-                          </th>
-                          <th className="text-left py-2 px-1 bg-blue-100 text-blue-600">
-                            Product Name
-                          </th>
-                          <th className="text-left py-2 px-1 bg-blue-100 text-blue-600">
-                            Quantity
-                          </th>
-                          <th className="text-left py-2 px-1 bg-blue-100 text-blue-600">
-                            Unit Price
-                          </th>
-                          <th className="text-left py-2 px-1 bg-blue-100 text-blue-600">
-                            Discount %
-                          </th>
-                          <th className="text-left py-2 px-1 bg-blue-100 text-blue-600 rounded-tr-lg">
-                            Tax %
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody className="text-gray-700">
-                        <tr className="border-b">
-                          <td className="py-2 px-1">01</td>
-                          <td className="py-2 px-1">Gas torch</td>
-                          <td className="py-2 px-1">60pcs</td>
-                          <td className="py-2 px-1">40.00$</td>
-                          <td className="py-2 px-1">6%</td>
-                          <td className="py-2 px-1">2%</td>
-                        </tr>
-                        <tr className="border-b">
-                          <td className="py-2 px-1">02</td>
-                          <td className="py-2 px-1">Scrapers</td>
-                          <td className="py-2 px-1">45pcs</td>
-                          <td className="py-2 px-1">25.00$</td>
-                          <td className="py-2 px-1">8%</td>
-                          <td className="py-2 px-1">2%</td>
-                        </tr>
-                        <tr className="border-b">
-                          <td className="py-2 px-1">03</td>
-                          <td className="py-2 px-1">Sealant guns</td>
-                          <td className="py-2 px-1">30pcs</td>
-                          <td className="py-2 px-1">50.00$</td>
-                          <td className="py-2 px-1">5%</td>
-                          <td className="py-2 px-1">3%</td>
-                        </tr>
-                        <tr className="border-b">
-                          <td className="py-2 px-1">04</td>
-                          <td className="py-2 px-1">Heat gun</td>
-                          <td className="py-2 px-1">80pcs</td>
-                          <td className="py-2 px-1">60.00$</td>
-                          <td className="py-2 px-1">9%</td>
-                          <td className="py-2 px-1">4%</td>
-                        </tr>
-                        <tr>
-                          <td className="py-2 px-1">05</td>
-                          <td className="py-2 px-1">Mixing paddles</td>
-                          <td className="py-2 px-1">15pcs</td>
-                          <td className="py-2 px-1">15.00$</td>
-                          <td className="py-2 px-1">8%</td>
-                          <td className="py-2 px-1">2%</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                  {/* Subtotal - Only show on Summary tab */}
-                  {activeTab === "summary" && (
-                    <div className="mt-4 text-sm text-right">
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Subtotal</span>
-                        <span className="font-medium">190.00$</span>
-                      </div>
-                    </div>
-                  )}
-                  {activeTab === "summary" && (
-                    <div className="md:pt-25">
-                      <div className="border-t-2 border-blue-500  mt-3  text-sm ">
-                        <div className="mt-2">
-                          <p className="text-gray-600 text-sm font-medium">
-                            Terms Condition
-                          </p>
-                          <p className="font-medium text-gray-700">
-                            Add a brief and concise description of the project,
-                            item, or service here.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {showModal && ( 
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
-            <div className="flex justify-center mb-6">
-              <div className="w-20 h-20 bg-blue-500 rounded-2xl flex items-center justify-center">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="w-12 h-12 text-white"
-                  fill="currentColor"
-                >
-                  <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
-                </svg>
-              </div>
-            </div>
-            <div className="flex gap-4 mb-6">
-              <button className="flex-1 h-24 border border-gray-500 rounded-lg flex flex-col items-center justify-center hover:bg-gray-50">
-                <span className="text-2xl mb-1">+</span>
-                <span className="text-sm">New Folder</span>
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="bg-white border-b border-gray-200 px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+              New Invoice
+            </h1>
+            <div className="flex items-center gap-3">
+              <button className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
+                <X className="w-4 h-4" />
+                Hide Preview
               </button>
-              <button className="flex-1 h-24 border border-gray-500 rounded-lg flex flex-col items-center justify-center hover:bg-gray-50">
-                <FileText className="w-6 h-6 mb-1" />
-                <span className="text-sm">Browser</span>
-              </button>
-            </div>
-            <div className="flex gap-4 mb-6">
-              <div className="flex-1">
-                <label className="block text-sm font-medium mb-2">
-                  File Name
-                </label>
-                <input
-                  type="text"
-                  placeholder="Ex. Download, Picture, etc"
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                  value={fileName}
-                  onChange={(e) => setFileName(e.target.value)}
-                />
-              </div>
-              <div className="flex-1">
-                <label className="block text-sm font-medium mb-2">
-                  Save as Type
-                </label>
-                <select
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                  value={fileType}
-                  onChange={(e) => setFileType(e.target.value)}
-                >
-                  <option>Pdf</option>
-                  <option>Jpg</option>
-                  <option>Png</option>
-                  <option>Docx</option>
-                </select>
-              </div>
-            </div>
-            <div className="flex justify-end gap-3">
               <button
-                className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300"
-                onClick={() => setShowModal(false)}
+                className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg border border-gray-300"
+                onClick={() => setShowModal(true)}
               >
-                Cancel
+                <FileText className="w-4 h-4" />
+                Save As
               </button>
-              <button className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
-                Save
+              <button className="flex items-center gap-2 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                <Mail className="w-4 h-4" />
+                Send Invoice
               </button>
             </div>
           </div>
         </div>
-      )}
+
+        <div className="flex-1 overflow-auto">
+          <div
+            className={`flex flex-col ${
+              sidebarCollapsed
+                ? "lg:flex-row lg:gap-10"
+                : "lg:flex-row md:gap-6"
+            } p-6 transition-all duration-300`}
+          >
+            {/* Left Form Section */}
+            <div
+              className={`${
+                sidebarCollapsed ? "w-full" : "w-full lg:w-3/5"
+              } transition-all`}
+            >
+              <div className="bg-white rounded-lg border border-gray-200 p-4 max-w-5xl mx-auto">
+                {/* Tabs */}
+                <div className="col-span-full mb-6">
+                  <div className="flex gap-2 overflow-x-auto whitespace-nowrap pb-1">
+                    {tabs.map((tab) => (
+                      <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id)}
+                        className={`px-3 py-1 rounded-full font-medium transition-colors ${
+                          activeTab === tab.id
+                            ? "bg-blue-200 border border-[#007AFF] text-[#007AFF]"
+                            : "bg-white text-[#007AFF] border border-[#007AFF] hover:bg-blue-200"
+                        }`}
+                      >
+                        {tab.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Form Grid */}
+                <div className="grid grid-cols-2 gap-6">
+                  {renderFormContent()}
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex flex-col md:flex-row items-center justify-center md:mt-20 mt-8 gap-4 md:gap-8 px-4 py-4">
+                  <button className="bg-gray-900 text-white w-64 py-2 rounded-lg hover:bg-gray-800 transition">
+                    Next
+                  </button>
+                  <button className="bg-gray-900 text-white w-64 py-2 rounded-lg hover:bg-gray-800 transition">
+                    Previous
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Preview Section */}
+            <div
+              className={`${
+                sidebarCollapsed ? "w-full" : "col-span-1"
+              } transition-all`}
+            >
+              <div className="rounded-lg border border-gray-200 px-3 py-4 sticky top-6 bg-white">
+                {/* Header Section */}
+                {(activeTab === "customer" ||
+                  activeTab === "order" ||
+                  activeTab === "product" ||
+                  activeTab === "summary") && (
+                  <>
+                    <div className="flex flex-col md:flex-row mb-2">
+                      <div className="flex flex-col items-center md:items-start">
+                        <div className="bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center w-20 h-20">
+                          <svg
+                            viewBox="0 0 100 100"
+                            className="w-12 h-12 text-white"
+                            fill="currentColor"
+                          >
+                            <path d="M30 20 L70 20 L70 40 L50 40 L50 80 L30 80 Z" />
+                          </svg>
+                        </div>
+                        <div className="mt-4 flex gap-2 text-sm">
+                          <span className="text-gray-600">Invoice Number:</span>
+                          <span className="font-medium">INV-04568</span>
+                        </div>
+                        <p className="font-medium text-sm mt-1 text-gray-700">
+                          07526
+                        </p>
+                      </div>
+
+                      <div className="flex-1 text-sm text-right md:text-right space-y-1">
+                        <p className="text-gray-600">
+                          19th Street, Mckinney Walker
+                        </p>
+                        <p className="text-gray-600">Jaddah</p>
+                        <p className="text-gray-600">+1-0281-856-6</p>
+                        <div className="pt-2">
+                          <p className="font-medium mb-1">Thomas Shelby</p>
+                          <p className="text-gray-600">
+                            thomasshelby@gmail.com
+                          </p>
+                          <p className="text-gray-600">Houston, Texas</p>
+                          <p className="text-gray-600">77002</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Project Description */}
+                    <div className="border-t-2 border-blue-500 pt-3">
+                      <p className="font-medium text-sm mb-2">
+                        Project Description:
+                      </p>
+                      <p className="text-gray-600 text-sm">
+                        Add a brief and concise description of the project,
+                        item, or service here.
+                      </p>
+                    </div>
+
+                    {activeTab === "product" && (
+                      <div>
+                        <p className="font-medium text-sm mb-3">
+                          Product Details
+                        </p>
+
+                        <div className="overflow-x-auto">
+                          <table className="w-full text-xs">
+                            <thead>
+                              <tr className="border-b">
+                                <th className="text-left py-2 px-1 bg-blue-100 text-blue-600 rounded-tl-lg">
+                                  S.no
+                                </th>
+                                <th className="text-left py-2 px-1 bg-blue-100 text-blue-600">
+                                  Product Name
+                                </th>
+                                <th className="text-left py-2 px-1 bg-blue-100 text-blue-600">
+                                  Quantity
+                                </th>
+                                <th className="text-left py-2 px-1 bg-blue-100 text-blue-600">
+                                  Unit Price
+                                </th>
+                                <th className="text-left py-2 px-1 bg-blue-100 text-blue-600">
+                                  Discount %
+                                </th>
+                                <th className="text-left py-2 px-1 bg-blue-100 text-blue-600 rounded-tr-lg">
+                                  Tax %
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody className="text-gray-700">
+                              <tr className="border-b">
+                                <td className="py-2 px-1">01</td>
+                                <td className="py-2 px-1">Gas torch</td>
+                                <td className="py-2 px-1">60pcs</td>
+                                <td className="py-2 px-1">40.00$</td>
+                                <td className="py-2 px-1">6%</td>
+                                <td className="py-2 px-1">2%</td>
+                              </tr>
+                              <tr className="border-b">
+                                <td className="py-2 px-1">02</td>
+                                <td className="py-2 px-1">Scrapers</td>
+                                <td className="py-2 px-1">45pcs</td>
+                                <td className="py-2 px-1">25.00$</td>
+                                <td className="py-2 px-1">8%</td>
+                                <td className="py-2 px-1">2%</td>
+                              </tr>
+                              <tr className="border-b">
+                                <td className="py-2 px-1">03</td>
+                                <td className="py-2 px-1">Sealant guns</td>
+                                <td className="py-2 px-1">30pcs</td>
+                                <td className="py-2 px-1">50.00$</td>
+                                <td className="py-2 px-1">5%</td>
+                                <td className="py-2 px-1">3%</td>
+                              </tr>
+                              <tr className="border-b">
+                                <td className="py-2 px-1">04</td>
+                                <td className="py-2 px-1">Heat gun</td>
+                                <td className="py-2 px-1">80pcs</td>
+                                <td className="py-2 px-1">60.00$</td>
+                                <td className="py-2 px-1">9%</td>
+                                <td className="py-2 px-1">4%</td>
+                              </tr>
+                              <tr>
+                                <td className="py-2 px-1">05</td>
+                                <td className="py-2 px-1">Mixing paddles</td>
+                                <td className="py-2 px-1">15pcs</td>
+                                <td className="py-2 px-1">15.00$</td>
+                                <td className="py-2 px-1">8%</td>
+                                <td className="py-2 px-1">2%</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div className="border-t-2 border-blue-500  mt-3  text-sm ">
+                          <div className="mt-2">
+                            <p className="text-gray-600 text-sm font-medium">
+                              Terms Condition
+                            </p>
+                            <p className="font-medium text-gray-700">
+                              Add a brief and concise description of the
+                              project, item, or service here.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Subtotal - Only on Order tab */}
+                    {activeTab === "order" && (
+                      <div className="md:pt-25">
+                        <div className="border-t-2 border-blue-500  mt-3  text-sm ">
+                          <div className="mt-2">
+                            <p className="text-gray-600 text-sm font-medium">
+                              Terms Condition
+                            </p>
+                            <p className="font-medium text-gray-700">
+                              Add a brief and concise description of the
+                              project, item, or service here.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {/* Product Table - Show on Product and Summary tabs */}
+                {activeTab === "summary" && (
+                  <div className="mt-4">
+                    <p className="font-medium text-sm mb-3">Product Details</p>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-xs">
+                        <thead>
+                          <tr className="border-b">
+                            <th className="text-left py-2 px-1 bg-blue-100 text-blue-600 rounded-tl-lg">
+                              S.no
+                            </th>
+                            <th className="text-left py-2 px-1 bg-blue-100 text-blue-600">
+                              Product Name
+                            </th>
+                            <th className="text-left py-2 px-1 bg-blue-100 text-blue-600">
+                              Quantity
+                            </th>
+                            <th className="text-left py-2 px-1 bg-blue-100 text-blue-600">
+                              Unit Price
+                            </th>
+                            <th className="text-left py-2 px-1 bg-blue-100 text-blue-600">
+                              Discount %
+                            </th>
+                            <th className="text-left py-2 px-1 bg-blue-100 text-blue-600 rounded-tr-lg">
+                              Tax %
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="text-gray-700">
+                          <tr className="border-b">
+                            <td className="py-2 px-1">01</td>
+                            <td className="py-2 px-1">Gas torch</td>
+                            <td className="py-2 px-1">60pcs</td>
+                            <td className="py-2 px-1">40.00$</td>
+                            <td className="py-2 px-1">6%</td>
+                            <td className="py-2 px-1">2%</td>
+                          </tr>
+                          <tr className="border-b">
+                            <td className="py-2 px-1">02</td>
+                            <td className="py-2 px-1">Scrapers</td>
+                            <td className="py-2 px-1">45pcs</td>
+                            <td className="py-2 px-1">25.00$</td>
+                            <td className="py-2 px-1">8%</td>
+                            <td className="py-2 px-1">2%</td>
+                          </tr>
+                          <tr className="border-b">
+                            <td className="py-2 px-1">03</td>
+                            <td className="py-2 px-1">Sealant guns</td>
+                            <td className="py-2 px-1">30pcs</td>
+                            <td className="py-2 px-1">50.00$</td>
+                            <td className="py-2 px-1">5%</td>
+                            <td className="py-2 px-1">3%</td>
+                          </tr>
+                          <tr className="border-b">
+                            <td className="py-2 px-1">04</td>
+                            <td className="py-2 px-1">Heat gun</td>
+                            <td className="py-2 px-1">80pcs</td>
+                            <td className="py-2 px-1">60.00$</td>
+                            <td className="py-2 px-1">9%</td>
+                            <td className="py-2 px-1">4%</td>
+                          </tr>
+                          <tr>
+                            <td className="py-2 px-1">05</td>
+                            <td className="py-2 px-1">Mixing paddles</td>
+                            <td className="py-2 px-1">15pcs</td>
+                            <td className="py-2 px-1">15.00$</td>
+                            <td className="py-2 px-1">8%</td>
+                            <td className="py-2 px-1">2%</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    {/* Subtotal - Only show on Summary tab */}
+                    {activeTab === "summary" && (
+                      <div className="mt-4 text-sm text-right">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Subtotal</span>
+                          <span className="font-medium">190.00$</span>
+                        </div>
+                      </div>
+                    )}
+                    {activeTab === "summary" && (
+                      <div className="md:pt-25">
+                        <div className="border-t-2 border-blue-500  mt-3  text-sm ">
+                          <div className="mt-2">
+                            <p className="text-gray-600 text-sm font-medium">
+                              Terms Condition
+                            </p>
+                            <p className="font-medium text-gray-700">
+                              Add a brief and concise description of the
+                              project, item, or service here.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {showModal && (
+          <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
+              <div className="flex justify-center mb-6">
+                <div className="w-20 h-20 bg-blue-500 rounded-2xl flex items-center justify-center">
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="w-12 h-12 text-white"
+                    fill="currentColor"
+                  >
+                    <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
+                  </svg>
+                </div>
+              </div>
+              <div className="flex gap-4 mb-6">
+                <button className="flex-1 h-24 border border-gray-500 rounded-lg flex flex-col items-center justify-center hover:bg-gray-50">
+                  <span className="text-2xl mb-1">+</span>
+                  <span className="text-sm">New Folder</span>
+                </button>
+                <button className="flex-1 h-24 border border-gray-500 rounded-lg flex flex-col items-center justify-center hover:bg-gray-50">
+                  <FileText className="w-6 h-6 mb-1" />
+                  <span className="text-sm">Browser</span>
+                </button>
+              </div>
+              <div className="flex gap-4 mb-6">
+                <div className="flex-1">
+                  <label className="block text-sm font-medium mb-2">
+                    File Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Ex. Download, Picture, etc"
+                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                    value={fileName}
+                    onChange={(e) => setFileName(e.target.value)}
+                  />
+                </div>
+                <div className="flex-1">
+                  <label className="block text-sm font-medium mb-2">
+                    Save as Type
+                  </label>
+                  <select
+                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                    value={fileType}
+                    onChange={(e) => setFileType(e.target.value)}
+                  >
+                    <option>Pdf</option>
+                    <option>Jpg</option>
+                    <option>Png</option>
+                    <option>Docx</option>
+                  </select>
+                </div>
+              </div>
+              <div className="flex justify-end gap-3">
+                <button
+                  className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300"
+                  onClick={() => setShowModal(false)}
+                >
+                  Cancel
+                </button>
+                <button className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
-}
+};
 
-export default InvoiceForm;
+export default NewInvoice;
